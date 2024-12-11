@@ -18,27 +18,20 @@
 		<script type="text/javascript">
 			"use strict";
 			window.addEventListener("load", () => {
-				if(document.location.href.startsWith("file:")) {
+				if (document.location.href.startsWith("file:")) {
 					alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
-				}else {
+				} else {
 					var opts = window.eaglercraftXOpts;
-					
-					if(typeof opts === "function") window.eaglercraftXOpts = opts = opts();
-					if(typeof opts === "undefined") window.eaglercraftXOpts = opts = {};
-					
-					if(!opts.container) opts.container = "game_frame";
-					if(!opts.assetsURI) opts.assetsURI = "assets.epk";
-					if(!opts.localesURI) opts.localesURI = "lang/";
-					
-					if(!opts.joinServer)  {
-						var q = window.location.search;
-						if(typeof q === "string" && q.startsWith("?")) {
-							q = new URLSearchParams(q);
-							var s = q.get("server");
-							if(s) opts.joinServer = s;
-						}
-					}
-					
+
+					if (typeof opts === "function") window.eaglercraftXOpts = opts = opts();
+					if (typeof opts === "undefined") window.eaglercraftXOpts = opts = {};
+
+					opts.container = opts.container || "game_frame";
+					opts.assetsURI = opts.assetsURI || "assets.epk";
+					opts.localesURI = opts.localesURI || "lang/";
+
+					opts.ignoreMouseLock = true; // Disable mouse lock checks
+
 					main();
 				}
 			});
